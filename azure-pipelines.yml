@@ -1,10 +1,4 @@
-# Docker
-- task: CopyFiles@2
-  inputs:
-    Contents: 'azure-pipelines.yml'
-    TargetFolder: '$(build.artifactstagingdirectory)'
-# Build and push an image to Azure Container Registry
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
 
 trigger:
 - master
@@ -41,12 +35,16 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
-- task: CopyFiles@2
-  inputs:
-    Contents: 'azure-pipelines.yml'
-    TargetFolder: '$(build.artifactstagingdirectory)'
+# Docker
+    - task: CopyFiles@2
+      inputs:
+        Contents: 'azure-pipelines.yml'
+        TargetFolder: '$(build.artifactstagingdirectory)'
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+    
